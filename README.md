@@ -1,3 +1,3 @@
 # Artificial-Intelligence
 
-Homework for COP 4630 Fall 2019
+Homework for CAP 4630 - Fall 2019
