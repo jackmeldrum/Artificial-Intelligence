@@ -1,0 +1,52 @@
+from mpl_toolkits import mplot3d
+import numpy as np
+import matplotlib.pyplot as plt
+
+def graph_contour(X, Y, Z):
+  fig = plt.figure()
+  plt.contourf(X, Y, Z, 20, cmap='RdGy')
+  plt.colorbar();
+  
+def graph_3dplot(Z, function_type):
+  fig = plt.figure() 
+  ax = plt.axes(projection='3d')
+  ax.contour3D(X, Y, Z, 60, cmap='binary')
+  
+  # Roundabout way of making sure the correct extrema value is marked correctly
+  if (function_type == "max"):
+    ax.scatter(0, 0, 1, s = 30, color = 'red', marker = 'o')
+  
+  else:
+    ax.scatter(0, 0, 0, s = 30, color = 'red', marker = 'o')
+    
+  ax.set_xlabel('x')
+  ax.set_ylabel('y')
+  
+  def max_function(x,y):
+    return (1 - x ** 2 - y ** 2)
+    
+  def min_function(x,y):
+    return (np.sqrt(x ** 2 + y ** 2))
+    
+  def saddle_function(x, y):
+    return (x ** 2 - y ** 2)
+    
+x = np.linspace(-6, 6, 30)
+y = np.linspace(-6, 6, 30)
+
+X, Y = np.meshgrid(x, y)
+
+# Maximum value at (0,0); f(0,0) = 1
+Z = max_function(X, Y)
+graph_contour(X, Y, Z)
+graph_3dplot(Z, "max")
+  
+# Minimum value at (0,0); f(0,0) = 0
+Z = min_function(X, Y)
+graph_contour(X, Y, Z)
+graph_3dplot(Z, "min")
+
+# Saddle point at (0,0); f(0,0) = 0
+Z = saddle_function(X, Y)
+graph_contour(X, Y, Z)
+graph_3dplot(Z, "saddle")
